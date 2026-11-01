@@ -1,0 +1,73 @@
+[
+  {
+    "zip": "my pipeline.v2i.yolov8.zip",
+    "yaml": "C:\\pds_y9jixd_5\\dataset_1\\data.yaml",
+    "classes": {
+      "0": "Bucking",
+      "1": "Corrode",
+      "2": "Crack",
+      "3": "Debris",
+      "4": "Deposit",
+      "5": "Hole",
+      "6": "Infiltration",
+      "7": "Joint offset",
+      "8": "Obstacle",
+      "9": "Root",
+      "10": "Standing water",
+      "11": "Utility intrusion"
+    },
+    "images_found": 1000,
+    "labels_found": 1000,
+    "missing_labels": 0,
+    "empty_labels": 34
+  },
+  {
+    "zip": "Pipeline Defects_Test.v1-after-solving-imbalance-problem-minimal-images.yolov8.zip",
+    "yaml": "C:\\pds_y9jixd_5\\dataset_2\\data.yaml",
+    "classes": {
+      "0": "Hole",
+      "1": "Leak",
+      "2": "rust"
+    },
+    "images_found": 1812,
+    "labels_found": 1812,
+    "missing_labels": 0,
+    "empty_labels": 0
+  },
+  {
+    "zip": "Pipeline Defects_Test2.v2i.yolov8.zip",
+    "yaml": "C:\\pds_y9jixd_5\\dataset_3\\data.yaml",
+    "classes": {
+      "0": "Hole",
+      "1": "Leak",
+      "2": "rust"
+    },
+    "images_found": 2097,
+    "labels_found": 2097,
+    "missing_labels": 0,
+    "empty_labels": 0
+  },
+  {
+    "zip": "PipeLine.v4i.yolov8.zip",
+    "yaml": "C:\\pds_y9jixd_5\\dataset_4\\data.yaml",
+    "classes": {
+      "0": "BX",
+      "1": "CJ",
+      "2": "CKTJ",
+      "3": "CQBG",
+      "4": "FZ",
+      "5": "JG",
+      "6": "JKCL",
+      "7": "PL",
+      "8": "SG",
+      "9": "SL",
+      "10": "YWCR",
+      "11": "ZAW",
+      "12": "ZGAJ"
+    },
+    "images_found": 3443,
+    "labels_found": 3443,
+    "missing_labels": 0,
+    "empty_labels": 88
+  }
+]

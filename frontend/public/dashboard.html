@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AquaInspect engineering dashboard">
+  <title>Dashboard | AquaInspect</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+
+<body class="app-page">
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span>
+          <strong>AquaInspect</strong>
+          <small>Pipeline intelligence</small>
+        </span>
+      </a>
+      <button class="icon-button sidebar-close" id="sidebar-close" aria-label="Close navigation">×</button>
+    </div>
+
+    <nav class="main-nav" aria-label="Main navigation">
+
+      <p class="nav-label">Workspace</p>
+
+      <a class="nav-link active" href="#overview" data-section="overview">
+        <span class="nav-icon">▦</span>Overview
+      </a>
+
+      <a class="nav-link" href="#inspection" data-section="inspection">
+        <span class="nav-icon">◉</span>Image inspection
+      </a>
+
+      <a class="nav-link" href="#defects" data-section="defects">
+        <span class="nav-icon">⌁</span>Defect analysis
+      </a>
+
+      <a class="nav-link" href="#map" data-section="map">
+        <span class="nav-icon">⌖</span>GIS map
+      </a>
+
+      <p class="nav-label">Operations</p>
+
+      <a class="nav-link" href="#reports" data-section="reports">
+        <span class="nav-icon">▤</span>Inspection reports
+      </a>
+
+      <a class="nav-link" href="#work-orders" data-section="work-orders">
+        <span class="nav-icon">✓</span>Work orders
+      </a>
+
+      <a class="nav-link" href="#history" data-section="history">
+        <span class="nav-icon">◷</span>Inspection history
+      </a>
+
+      <a class="nav-link" href="#assets" data-section="assets">
+        <span class="nav-icon">▥</span>Pipeline assets
+      </a>
+
+      <p class="nav-label">Administration</p>
+
+      <a class="nav-link" href="#admin" data-section="admin">
+        <span class="nav-icon">⚙</span>System administration
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="api-status">
+        <span class="status-dot" id="api-status-dot"></span>
+        <span>
+          <strong>API connection</strong>
+          <small id="api-status-text" aria-live="polite">Checking connection...</small>
+        </span>
+      </div>
+
+      <a class="nav-link logout-link" href="login.html" id="logout">
+        <span class="nav-icon">↪</span>Log out
+      </a>
+
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <div class="app-main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <button class="icon-button menu-toggle" id="menu-toggle" aria-label="Open navigation">
+        ☰
+      </button>
+
+      <div class="breadcrumb">
+        <span>Workspace</span>
+        <span>/</span>
+        <strong id="page-title">Overview</strong>
+      </div>
+
+      <div class="topbar-actions">
+
+        <button
+          class="icon-button"
+          data-notice="Notifications are not available yet."
+          aria-label="Notifications"
+        >♧</button>
+
+        <div class="user-menu">
+          <span class="avatar" id="user-avatar">A</span>
+          <span>
+            <strong id="user-name">Workspace user</strong>
+            <small>Engineering workspace</small>
+          </span>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- DASHBOARD CONTENT -->
+    <main class="dashboard-content">
+
+      <!-- OVERVIEW -->
+      <section class="page-section active-section" id="overview">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Network overview</p>
+            <h1>Good morning, engineer.</h1>
+            <p class="section-subtitle">
+              Monitor inspection coverage, defect risk, and maintenance activity from one workspace.
+            </p>
+          </div>
+
+          <button class="button button-primary" data-section-jump="inspection">
+            + New inspection
+          </button>
+        </div>
+
+        <!-- REAL BACKEND STATISTICS -->
+        <div class="stat-grid">
+
+          <article class="stat-card">
+            <span class="stat-label">Total inspection runs</span>
+            <strong id="stat-total-inspections">—</strong>
+            <small id="stat-inspections-caption">Loading API data...</small>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Total defects detected</span>
+            <strong id="stat-total-defects">—</strong>
+            <small id="stat-defects-caption">Loading API data...</small>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Images analyzed</span>
+            <strong id="stat-images-analyzed">—</strong>
+            <small id="stat-analyzed-caption">Loading API data...</small>
+          </article>
+
+          <article class="stat-card">
+            <span class="stat-label">Images with defects</span>
+            <strong id="stat-images-with-defects">—</strong>
+            <small id="stat-images-caption">Loading API data...</small>
+          </article>
+
+        </div>
+
+        <div class="overview-grid">
+
+          <article class="panel empty-panel">
+
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Pipeline network</p>
+                <h2>Coverage and defect overview</h2>
+              </div>
+
+              <a class="text-link" href="#map" data-section-jump="map">
+                Open map →
+              </a>
+            </div>
+
+            <div class="empty-state">
+              <span class="empty-icon">⌖</span>
+              <strong>No inspection data available.</strong>
+              <p>
+                Routes and defect locations will appear after actual location data
+                is supported by the backend.
+              </p>
+            </div>
+
+          </article>
+
+          <article class="panel empty-panel">
+
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Maintenance</p>
+                <h2>Maintenance progress</h2>
+              </div>
+
+              <a class="text-link" href="#work-orders" data-section-jump="work-orders">
+                View work orders →
+              </a>
+            </div>
+
+            <div class="empty-state">
+              <span class="empty-icon">✓</span>
+              <strong>No maintenance work orders available.</strong>
+              <p>
+                Work-order management is not yet available in the connected backend.
+              </p>
+            </div>
+
+          </article>
+
+        </div>
+      </section>
+
+      <!-- IMAGE INSPECTION -->
+      <section class="page-section" id="inspection">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Inspection workflow</p>
+            <h1>Image inspection</h1>
+            <p class="section-subtitle">
+              Upload pipeline photographs for inspection review.
+            </p>
+          </div>
+        </div>
+
+        <div class="two-column">
+
+          <article class="panel">
+
+            <div class="panel-heading">
+              <div>
+                <h2>Upload inspection package</h2>
+                <p>JPG, JPEG and PNG pipeline photographs are supported.</p>
+              </div>
+
+              <span class="status-pill neutral" id="processing-badge">
+                Not submitted
+              </span>
+            </div>
+
+            <form id="inspection-form" class="form-grid">
+
+              <label>
+                Pipeline ID
+                <input
+                  id="pipeline-id"
+                  name="pipeline_id"
+                  required
+                  placeholder="Provided by API or asset register"
+                >
+              </label>
+
+              <label>
+                Inspection location
+                <input
+                  id="inspection-location"
+                  name="location"
+                  required
+                  placeholder="Location description"
+                >
+              </label>
+
+              <label>
+                Inspection date
+                <input
+                  id="inspection-date"
+                  name="inspection_date"
+                  type="date"
+                  required
+                >
+              </label>
+
+              <label>
+                Travel logs
+                <input
+                  id="travel-logs"
+                  name="travel_logs"
+                  type="file"
+                  accept=".csv,.json,.gpx"
+                >
+              </label>
+
+              <div class="upload-zone" id="upload-zone">
+
+                <input
+                  id="video-file"
+                  name="images"
+                  type="file"
+                  accept="image/jpeg,image/png,image/jpg"
+                  multiple
+                  hidden
+                >
+
+                <span class="upload-icon">↑</span>
+                <strong>Drop pipeline images here</strong>
+
+                <span>
+                  or
+                  <button type="button" class="text-button" id="choose-video">
+                    browse files
+                  </button>
+                </span>
+
+                <small id="file-name">No image selected</small>
+
+              </div>
+
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">
+                  Submit for analysis
+                </button>
+
+                <span class="form-message" id="inspection-message" aria-live="polite"></span>
+              </div>
+
+            </form>
+          </article>
+
+          <article class="panel">
+
+            <div class="panel-heading">
+              <div>
+                <h2>Image preview</h2>
+                <p>Preview stays local until submitted.</p>
+              </div>
+            </div>
+
+            <div class="video-preview" id="video-preview">
+              <span class="empty-icon">▶</span>
+              <strong>No image selected</strong>
+              <p>Choose a supported pipeline image to preview it here.</p>
+            </div>
+
+          </article>
+
+        </div>
+      </section>
+
+      <!-- DEFECT ANALYSIS -->
+      <section class="page-section" id="defects">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">AI analysis</p>
+            <h1>Defect analysis</h1>
+            <p class="section-subtitle">
+              Review detections returned by the inspection analysis service.
+            </p>
+          </div>
+
+          <button class="button button-secondary" data-api-action="export-defects">
+            Export results
+          </button>
+        </div>
+
+        <article class="panel">
+
+          <div class="filter-row">
+
+            <input
+              class="search-input"
+              id="defect-search"
+              placeholder="Search defect or pipeline ID"
+              aria-label="Search defects"
+            >
+
+            <select id="defect-severity" aria-label="Filter by severity">
+              <option value="">All severities</option>
+              <option>Normal</option>
+              <option>Minor</option>
+              <option>Moderate</option>
+              <option>Critical</option>
+            </select>
+
+            <select id="defect-type" aria-label="Filter by defect type">
+              <option value="">All defect types</option>
+              <option>Crack</option>
+              <option>Joint displacement</option>
+              <option>Corrosion</option>
+              <option>Blockage</option>
+            </select>
+
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Defect ID</th>
+                  <th>Pipeline ID</th>
+                  <th>Defect type</th>
+                  <th>Severity</th>
+                  <th>Confidence</th>
+                  <th>Timestamp</th>
+                  <th>GPS coordinates</th>
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody id="defect-table-body">
+                <tr class="empty-row">
+                  <td colspan="8">
+                    <strong>No defects detected yet.</strong>
+                    <span>Analysis results will appear here when received from the API.</span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
+
+        </article>
+      </section>
+
+      <!-- GIS MAP -->
+      <section class="page-section" id="map">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Geospatial intelligence</p>
+            <h1>GIS map</h1>
+            <p class="section-subtitle">
+              Explore actual pipeline routes and verified defect locations.
+            </p>
+          </div>
+
+          <div class="map-legend">
+            <span><i class="legend-dot normal"></i>Normal</span>
+            <span><i class="legend-dot minor"></i>Minor</span>
+            <span><i class="legend-dot moderate"></i>Moderate</span>
+            <span><i class="legend-dot critical"></i>Critical</span>
+          </div>
+        </div>
+
+        <article class="panel map-panel">
+          <div id="inspection-map" class="inspection-map" aria-label="Pipeline inspection map"></div>
+
+          <div class="map-empty-state">
+            No pipeline routes or defect locations available.
+          </div>
+        </article>
+
+      </section>
+
+      <!-- REPORTS -->
+      <section class="page-section" id="reports">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Documentation</p>
+            <h1>Inspection reports</h1>
+            <p class="section-subtitle">
+              Generate reports from completed inspection records only.
+            </p>
+          </div>
+        </div>
+
+        <div class="overview-grid">
+
+          <article class="panel" id="analytical-reports-panel">
+
+            <div class="panel-heading">
+              <div>
+                <h2>Analytical reports</h2>
+                <p>Severity distribution, classification, locations, and inspection summaries.</p>
+              </div>
+
+              <button class="button button-secondary" data-api-action="generate-report" id="btn-generate-report" disabled>
+                Generate PDF
+              </button>
+            </div>
+
+            <div class="empty-state" id="reports-empty-state">
+              <span class="empty-icon">▤</span>
+              <strong>No records found.</strong>
+              <p>Reports are unavailable until actual inspection records are returned.</p>
+            </div>
+
+            <div class="report-panel-content" id="reports-selector-wrap" style="display:none;">
+              <label for="report-inspection-select" style="display:block; margin-bottom:8px; font-weight:700; font-size:12px; color:var(--navy);">
+                Select completed inspection to generate PDF:
+              </label>
+              <select id="report-inspection-select" style="width:100%; height:40px; border:1px solid #cbd7e5; border-radius:6px; padding:0 12px; background:#fff; font-size:13px; color:var(--ink);"></select>
+              <div id="report-inspection-details" class="report-card">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+
+          </article>
+
+          <article class="panel" id="recent-reports-panel">
+
+            <div class="panel-heading">
+              <div>
+                <h2>Recent reports</h2>
+                <p>Download previously generated documents.</p>
+              </div>
+            </div>
+
+            <div class="empty-state compact" id="recent-reports-empty">
+              <strong>No reports available.</strong>
+            </div>
+
+            <div class="report-panel-content" id="recent-reports-wrap" style="display:none;">
+              <table class="recent-reports-table">
+                <thead>
+                  <tr>
+                    <th>Report / Inspection</th>
+                    <th>Generated</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-reports-body">
+                </tbody>
+              </table>
+              <small style="display:block; margin-top:12px; color:var(--muted); font-size:11px;">
+                Session history only. Persistent reports are generated on-demand from inspection records.
+              </small>
+            </div>
+
+          </article>
+
+        </div>
+      </section>
+
+      <!-- WORK ORDERS -->
+      <section class="page-section" id="work-orders">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Field operations</p>
+            <h1>Maintenance work orders</h1>
+            <p class="section-subtitle">
+              Manage actions generated for verified critical defects.
+            </p>
+          </div>
+
+          <button class="button button-primary" data-api-action="create-work-order">
+            Create work order
+          </button>
+        </div>
+
+        <article class="panel">
+
+          <div class="filter-row">
+
+            <input
+              class="search-input"
+              id="work-search"
+              placeholder="Search work orders"
+              aria-label="Search work orders"
+            >
+
+            <select id="work-status" aria-label="Filter work order status">
+              <option value="">All statuses</option>
+              <option>Pending</option>
+              <option>In Progress</option>
+              <option>Completed</option>
+            </select>
+
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Work order ID</th>
+                  <th>Defect ID</th>
+                  <th>Pipeline ID</th>
+                  <th>Location</th>
+                  <th>Severity</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="empty-row">
+                  <td colspan="8">
+                    <strong>No maintenance work orders available.</strong>
+                    <span>Work orders are not yet supported by the backend.</span>
+                  </td>
+                </tr>
+              </tbody>
+
+            </table>
+          </div>
+
+        </article>
+      </section>
+
+      <!-- INSPECTION HISTORY -->
+      <section class="page-section" id="history">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Records</p>
+            <h1>Inspection history</h1>
+            <p class="section-subtitle">
+              Search previous inspections by pipeline, date, defect type, or severity.
+            </p>
+          </div>
+        </div>
+
+        <article class="panel">
+
+          <div class="filter-row history-filters">
+
+            <input id="history-pipeline" placeholder="Pipeline ID" aria-label="Filter history by pipeline ID">
+
+            <input id="history-date" type="date" aria-label="Filter history by date">
+
+            <select id="history-type" aria-label="Filter history by defect type">
+              <option value="">All defect types</option>
+              <option>Cracks</option>
+              <option>Joint Displacements</option>
+              <option>Surface Corrosion</option>
+              <option>Internal Blockages</option>
+            </select>
+
+            <select id="history-severity" aria-label="Filter history by severity">
+              <option value="">All severities</option>
+              <option>Minor</option>
+              <option>Moderate</option>
+              <option>Critical</option>
+            </select>
+
+          </div>
+
+          <div class="table-wrap" id="history-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Inspection ID</th>
+                  <th>Pipeline ID</th>
+                  <th>Location</th>
+                  <th>Inspection Date</th>
+                  <th>Images</th>
+                  <th>Defects</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <tr class="empty-row">
+                  <td colspan="8">
+                    <div class="table-empty">
+                      <span class="empty-icon">◷</span>
+                      <strong>No records found.</strong>
+                      <p>Inspection history will populate from the API.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </article>
+      </section>
+
+      <!-- PIPELINE ASSETS -->
+      <section class="page-section" id="assets">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Asset register</p>
+            <h1>Pipeline asset inventory</h1>
+            <p class="section-subtitle">
+              Maintain a single view of pipeline assets and inspection coverage.
+            </p>
+          </div>
+
+          <button class="button button-primary" data-api-action="add-asset">
+            Add pipeline asset
+          </button>
+        </div>
+
+        <article class="panel">
+
+          <div class="filter-row">
+            <input
+              id="asset-search"
+              class="search-input"
+              placeholder="Search pipeline assets"
+              aria-label="Search pipeline assets"
+            >
+          </div>
+
+          <div class="empty-state table-empty">
+            <span class="empty-icon">▥</span>
+            <strong>No pipeline assets available.</strong>
+            <p>Asset inventory will appear after the API supports registered pipelines.</p>
+          </div>
+
+        </article>
+      </section>
+
+      <!-- ADMINISTRATION -->
+      <section class="page-section" id="admin">
+
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Administration</p>
+            <h1>System administration</h1>
+            <p class="section-subtitle">
+              Manage users, roles, and system parameters when an administrator session is connected.
+            </p>
+          </div>
+        </div>
+
+        <div class="overview-grid">
+
+          <article class="panel empty-panel">
+
+            <div class="panel-heading">
+              <div>
+                <h2>User management</h2>
+                <p>Authorized administrators can manage access.</p>
+              </div>
+
+              <button class="button button-secondary" data-api-action="manage-users">
+                Manage users
+              </button>
+            </div>
+
+            <div class="empty-state compact">
+              <strong>No user directory available.</strong>
+            </div>
+
+          </article>
+
+          <article class="panel empty-panel">
+
+            <div class="panel-heading">
+              <div>
+                <h2>System parameters</h2>
+                <p>Configure inspection and maintenance rules.</p>
+              </div>
+
+              <button class="button button-secondary" data-api-action="system-parameters">
+                Open parameters
+              </button>
+            </div>
+
+            <div class="empty-state compact">
+              <strong>Parameters unavailable.</strong>
+            </div>
+
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- REUSABLE DETAILS MODAL -->
+<div class="modal-backdrop" id="app-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-title">Inspection Details</h3>
+      <button class="icon-button modal-close" id="modal-close-btn" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="script.js"></script>
+
+</body>
+</html>

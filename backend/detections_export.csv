@@ -1,0 +1,1 @@
+﻿detection_id,inspection_id,inspection_title,image_id,image_filename,defect_type,confidence,bbox_x1,bbox_y1,bbox_x2,bbox_y2,severity_level,severity_score,review_status,model_version,detected_at

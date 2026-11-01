@@ -1,0 +1,94 @@
+{
+  "input_zip_files": [
+    "my pipeline.v2i.yolov8.zip",
+    "Pipeline Defects_Test.v1-after-solving-imbalance-problem-minimal-images.yolov8.zip",
+    "Pipeline Defects_Test2.v2i.yolov8.zip",
+    "PipeLine.v4i.yolov8.zip"
+  ],
+  "final_classes": [
+    "crack",
+    "joint_displacement",
+    "corrosion",
+    "blockage"
+  ],
+  "total_unique_images": 3516,
+  "split_image_counts": {
+    "train": 2461,
+    "valid": 703,
+    "test": 352
+  },
+  "background_images_by_split": {
+    "train": 93,
+    "valid": 20,
+    "test": 9
+  },
+  "images_containing_each_class_by_split": {
+    "train": {
+      "blockage": 1401,
+      "crack": 184,
+      "corrosion": 666,
+      "joint_displacement": 297
+    },
+    "valid": {
+      "corrosion": 213,
+      "blockage": 400,
+      "joint_displacement": 69,
+      "crack": 51
+    },
+    "test": {
+      "blockage": 195,
+      "corrosion": 94,
+      "crack": 34,
+      "joint_displacement": 53
+    }
+  },
+  "processing_stats": {
+    "annotations_excluded_unmapped": 8689,
+    "images_only_excluded_classes_skipped": 4710,
+    "segmentation_polygons_converted": 5448,
+    "duplicate_images_merged": 126,
+    "bbox_boundary_rounding_clipped": 2
+  },
+  "source_stats": [
+    {
+      "zip": "my pipeline.v2i.yolov8.zip",
+      "images_seen": 1000,
+      "images_only_excluded_classes_skipped": 285,
+      "empty_label_background_images": 34
+    },
+    {
+      "zip": "Pipeline Defects_Test.v1-after-solving-imbalance-problem-minimal-images.yolov8.zip",
+      "images_seen": 1812,
+      "images_only_excluded_classes_skipped": 1299
+    },
+    {
+      "zip": "Pipeline Defects_Test2.v2i.yolov8.zip",
+      "images_seen": 2097,
+      "images_only_excluded_classes_skipped": 1561
+    },
+    {
+      "zip": "PipeLine.v4i.yolov8.zip",
+      "images_seen": 3443,
+      "images_only_excluded_classes_skipped": 1565,
+      "empty_label_background_images": 88
+    }
+  ],
+  "mapping": {
+    "Crack": "crack",
+    "Corrode": "corrosion",
+    "Joint offset": "joint_displacement",
+    "Debris": "blockage",
+    "Deposit": "blockage",
+    "Obstacle": "blockage",
+    "Root": "blockage",
+    "Utility intrusion": "blockage",
+    "rust": "corrosion",
+    "CJ": "blockage",
+    "CQBG": "blockage",
+    "PL": "crack",
+    "SG": "blockage",
+    "YWCR": "blockage",
+    "ZAW": "blockage"
+  },
+  "note": "Class counts are images containing a class, not object counts. Segmentation polygons were converted to enclosing detection boxes. The split is deterministic random and not class-stratified."
+}

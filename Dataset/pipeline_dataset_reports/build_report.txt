@@ -1,0 +1,16 @@
+PIPELINE DATASET BUILD REPORT
+Unique images: 3516
+Train: 2461
+Validation: 703
+Test: 352
+Background images: 122
+Segmentation polygons converted: 5448
+Bounding boxes clipped for tiny boundary rounding: 2
+Unmapped annotations excluded: 8689
+
+Images containing each class by split:
+train: {'blockage': 1401, 'crack': 184, 'corrosion': 666, 'joint_displacement': 297}
+valid: {'corrosion': 213, 'blockage': 400, 'joint_displacement': 69, 'crack': 51}
+test: {'blockage': 195, 'corrosion': 94, 'crack': 34, 'joint_displacement': 53}
+
+Processing stats: {'annotations_excluded_unmapped': 8689, 'images_only_excluded_classes_skipped': 4710, 'segmentation_polygons_converted': 5448, 'duplicate_images_merged': 126, 'bbox_boundary_rounding_clipped': 2}

@@ -1,0 +1,30 @@
+# Python & Environment
+venv/
+Dataset/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node.js & Next.js Build
+node_modules/
+frontend/node_modules/
+.next/
+frontend/.next/
+
+# Secrets & Local Databases
+.env
+backend/.env
+backend/instance/
+
+# Local Storage & Run Artifacts
+backend/storage/original/*
+!backend/storage/original/.gitkeep
+backend/storage/annotated/*
+!backend/storage/annotated/.gitkeep
+backend/runs/
+backend/models/*.pt
+
+# Large Files & Raw Datasets Exceeding GitHub Limits
+*.zip
+Dataset/*.zip
+Dataset/Pipeline_Defect_Dataset/

@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+instance/
+storage/
+demo_output/
+models/*.pt
+.pytest_cache/

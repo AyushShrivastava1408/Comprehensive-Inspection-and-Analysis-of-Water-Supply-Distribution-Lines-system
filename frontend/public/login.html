@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in | AquaInspect</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="auth-page">
+  <main class="auth-layout">
+
+    <section class="auth-intro">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span>
+          <strong>AquaInspect</strong>
+          <small>Pipeline intelligence</small>
+        </span>
+      </a>
+
+      <div>
+        <p class="eyebrow">Secure engineering workspace</p>
+        <h1>Inspect smarter.<br /><em>Maintain sooner.</em></h1>
+        <p>Review pipeline images, understand defects and keep maintenance work grounded in the facts.</p>
+      </div>
+
+      <p class="auth-footnote">
+        Software-only platform for pre-recorded inspection analysis.
+      </p>
+    </section>
+
+    <section class="auth-card-wrap">
+      <div class="auth-card">
+
+        <a class="mobile-brand brand" href="index.html">
+          <span class="brand-mark"><span></span></span>
+          <span>
+            <strong>AquaInspect</strong>
+            <small>Pipeline intelligence</small>
+          </span>
+        </a>
+
+        <div class="form-heading">
+          <p class="eyebrow">Welcome back</p>
+          <h2>Sign in to AquaInspect</h2>
+          <p>Use your workspace credentials to continue.</p>
+        </div>
+
+        <form id="login-form" novalidate>
+
+          <div class="field">
+            <label for="login-email">Email address</label>
+            <input
+              id="login-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@organisation.gov"
+              required
+            />
+            <span class="field-error" data-error-for="login-email"></span>
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password</label>
+
+            <div class="password-wrap">
+              <input
+                id="login-password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                required
+                minlength="8"
+              />
+
+              <button
+                class="password-toggle"
+                type="button"
+                data-toggle-password="login-password"
+                aria-label="Show password"
+              >Show</button>
+            </div>
+
+            <span class="field-error" data-error-for="login-password"></span>
+          </div>
+
+          <div class="form-row">
+            <label class="check-label">
+              <input type="checkbox" name="remember" />
+              <span>Remember me</span>
+            </label>
+
+            <a
+              href="#"
+              data-notice="Password recovery is not available yet."
+            >Forgot password?</a>
+          </div>
+
+          <button class="button button-primary button-full" type="submit">
+            Sign in <span aria-hidden="true">→</span>
+          </button>
+
+          <div class="form-message" id="login-message" role="status"></div>
+
+        </form>
+
+        <p class="auth-switch">
+          New to AquaInspect? <a href="signup.html">Create an account</a>
+        </p>
+
+        <p class="api-note">
+          Sign in using your AquaInspect backend account credentials.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
